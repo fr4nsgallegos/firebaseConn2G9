@@ -10,7 +10,8 @@ plugins {
 
 android {
     namespace = "com.groupG9.firebaseconn2g9"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
+    // compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
