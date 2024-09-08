@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebaseconn2g9/constants/constants.dart';
 import 'package:firebaseconn2g9/pages/login_page.dart';
+import 'package:firebaseconn2g9/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
@@ -11,41 +12,6 @@ class CreateAccountPage extends StatelessWidget {
   var logger = Logger(
       // printer: PrettyPrinter(),
       );
-  Widget buildField(String titulo, TextEditingController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          titulo,
-          style: cabeceraFieldStyle,
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Container(
-          height: 60,
-          child: TextField(
-            controller: controller,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white.withOpacity(0.2),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25),
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
 
   Future createAccount(BuildContext context) async {
     try {
@@ -117,8 +83,11 @@ class CreateAccountPage extends StatelessWidget {
                 SizedBox(
                   height: 24,
                 ),
-                buildField("Correo electrónico", _correoController),
-                buildField("Contraseña", _contrasenaController),
+                FieldWidget(
+                    titulo: "Correo electrónico",
+                    controller: _correoController),
+                FieldWidget(
+                    titulo: "Contraseña", controller: _contrasenaController),
                 SizedBox(
                   height: 16,
                 ),
