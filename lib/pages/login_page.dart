@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebaseconn2g9/constants/constants.dart';
 import 'package:firebaseconn2g9/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,15 @@ import 'package:flutter/material.dart';
 class LoginPage extends StatelessWidget {
   TextEditingController _correoController = TextEditingController();
   TextEditingController _contrasenaController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> login(BuildContext context) async {
+    _auth.signInWithEmailAndPassword(
+      email: _correoController.text,
+      password: _contrasenaController.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,7 +60,9 @@ class LoginPage extends StatelessWidget {
                   height: 32,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    login(context);
+                  },
                   child: Text("Iniciar"),
                 ),
               ],

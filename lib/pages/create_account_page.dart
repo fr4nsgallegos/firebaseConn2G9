@@ -13,7 +13,7 @@ class CreateAccountPage extends StatelessWidget {
       // printer: PrettyPrinter(),
       );
 
-  Future createAccount(BuildContext context) async {
+  Future<void> createAccount(BuildContext context) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
