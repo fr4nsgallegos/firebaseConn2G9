@@ -1,3 +1,4 @@
+import 'package:firebaseconn2g9/pages/create_account_page.dart';
 import 'package:firebaseconn2g9/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +12,8 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      // home: HomePage(),
+      home: CreateAccountPage(),
     ),
   );
 }

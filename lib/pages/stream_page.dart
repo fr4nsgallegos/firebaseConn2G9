@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class StreamPage extends StatefulWidget {
@@ -52,23 +53,29 @@ class _StreamPageState extends State<StreamPage> {
         appBar: AppBar(
           title: Text("Stream Page"),
         ),
-        //STREAM BUILDER
-        // body: StreamBuilder(
-        //   stream: frutasStream(),
-        //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //     if (snapshot.hasData) {
-        //       return Center(
-        //         child: Text(
-        //           snapshot.data.toString(),
-        //           style: TextStyle(fontSize: 40),
-        //         ),
-        //       );
-        //     }
-        //     return Center(
-        //       child: CircularProgressIndicator(),
-        //     );
-        //   },
-        // ),
+        // STREAM BUILDER
+        body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("users").snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (BuildContext context, int index) {
+                  DocumentSnapshot doc = snapshot.data!.docs[index];
+
+                  return ListTile(
+                    title: Text(
+                      doc["name"],
+                    ),
+                  );
+                },
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
 
         // //FUTURE BUILDER
         // body: FutureBuilder(
