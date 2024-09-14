@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebaseconn2g9/constants/constants.dart';
+import 'package:firebaseconn2g9/pages/home_page.dart';
 import 'package:firebaseconn2g9/pages/login_page.dart';
 import 'package:firebaseconn2g9/widgets/field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 
 class CreateAccountPage extends StatelessWidget {
   TextEditingController _correoController = TextEditingController();
   TextEditingController _contrasenaController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
+
   var logger = Logger(
       // printer: PrettyPrinter(),
       );
@@ -49,6 +53,29 @@ class CreateAccountPage extends StatelessWidget {
     } else {
       return "Ocurrió un problema al registrar la cuenta";
     }
+  }
+
+  Future<User?> signInWithGoogle() async {
+    //SOLICITAR EL INICIO DE SESIÓN CON GOOGLE
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    //OBTENER LA AUTENTICACIÓN DE GOOGLE
+    GoogleSignInAuthentication? googleSignInAuthentication =
+        await googleSignInAccount?.authentication;
+
+    //CREAR LAS CREDENCIALES PARA INICIO EN FIREBASE
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication?.accessToken,
+      idToken: googleSignInAuthentication?.idToken,
+    );
+
+    //INICIAR SESIÓN EN FIREBASE CON LAS CREDENCIALES DE GOOGLE
+    User? user =
+        (await FirebaseAuth.instance.signInWithCredential(credential)).user;
+
+    //DEBUG IMPRESIÓN
+    print(user?.displayName);
+    return user;
   }
 
   @override
@@ -114,6 +141,34 @@ class CreateAccountPage extends StatelessWidget {
                   },
                   child: Text("Crear cuenta"),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "o Inicia sesión con",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        signInWithGoogle().then((value) {
+                          if (value != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomePage(),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      icon: Icon(
+                        Icons.g_mobiledata,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),
