@@ -1,4 +1,5 @@
 import 'package:custom_info_window/custom_info_window.dart';
+import 'package:firebaseconn2g9/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -35,7 +36,28 @@ class _MapPage2State extends State<MapPage2> {
             Container(
               height: 200,
               width: 200,
-              color: Colors.red,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(color: Colors.white),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Esta esla dirección",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  // Spacer(),
+                  Text(
+                    "Este es el punto de partida",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
             ),
             pos1,
           );
@@ -58,6 +80,13 @@ class _MapPage2State extends State<MapPage2> {
   void initState() {
     super.initState();
     addMarkers();
+  }
+
+  @override
+  void dispose() {
+    _customInfoWindowController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -84,6 +113,9 @@ class _MapPage2State extends State<MapPage2> {
                 _customInfoWindowController.hideInfoWindow!();
               },
               markers: _markers,
+              onCameraMove: (position) {
+                _customInfoWindowController.onCameraMove!();
+              },
             ),
             CustomInfoWindow(
               controller: _customInfoWindowController,
