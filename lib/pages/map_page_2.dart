@@ -93,9 +93,6 @@ class _MapPage2State extends State<MapPage2> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          _markers.forEach((e) => print(e));
-        }),
         body: Stack(
           children: [
             GoogleMap(
