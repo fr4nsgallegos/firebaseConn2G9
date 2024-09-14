@@ -1,5 +1,6 @@
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:firebaseconn2g9/main.dart';
+import 'package:firebaseconn2g9/utils/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,7 +13,7 @@ class _MapPage2State extends State<MapPage2> {
   Set<Marker> _markers = {};
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-
+  final _mapController = HomeController();
   Future addMarkers() async {
     Set<Marker> auxMarkers = Set();
     LatLng pos1 = LatLng(-12.156127397452977, -76.97236155069054);
@@ -96,9 +97,7 @@ class _MapPage2State extends State<MapPage2> {
         body: Stack(
           children: [
             GoogleMap(
-              onMapCreated: (GoogleMapController controller) {
-                _customInfoWindowController.googleMapController = controller;
-              },
+              onMapCreated: _mapController.onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: LatLng(
                   -12.156056726143506,
