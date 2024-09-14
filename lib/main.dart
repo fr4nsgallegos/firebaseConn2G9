@@ -1,6 +1,7 @@
 import 'package:firebaseconn2g9/pages/create_account_page.dart';
 import 'package:firebaseconn2g9/pages/home_page.dart';
 import 'package:firebaseconn2g9/pages/map_page.dart';
+import 'package:firebaseconn2g9/pages/map_page_2.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -14,7 +15,7 @@ void main() async {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: HomePage(),
-      home: MapPage(),
+      home: MapPage2(),
     ),
   );
 }
