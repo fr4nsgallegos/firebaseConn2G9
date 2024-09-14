@@ -25,6 +25,10 @@ class _MapPageState extends State<MapPage> {
           -76.97245352927253,
         ),
         icon: _customMarker!,
+        infoWindow: InfoWindow(
+          title: "Marcador",
+          snippet: "Este es un marker personalizado",
+        ),
       ),
     );
     setState(() {});
@@ -59,6 +63,11 @@ class _MapPageState extends State<MapPage> {
                   _markers.length.toString(),
                 ),
                 position: position,
+                icon: _customMarker!,
+                infoWindow: InfoWindow(
+                  title: "marcador n ${_markers.length}",
+                  snippet: "Este es un marcador distintos",
+                ),
               ),
             );
             setState(() {});
